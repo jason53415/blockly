@@ -239,6 +239,12 @@ Blockly.Python['text_print'] = function(block) {
   // Print statement.
   var msg = Blockly.Python.valueToCode(block, 'TEXT',
       Blockly.Python.ORDER_NONE) || '\'\'';
+  Blockly.Python.definitions_['import_sys'] = 'import sys';
+  Blockly.Python.definitions_['import_io'] = 'import io';
+  Blockly.Python.provideFunction_(
+    'stdout_redirect',
+    ["if sys.stdout == sys.__stdout__:",
+     "  sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), encoding='utf-8', write_through=True)"]);
   return 'print(' + msg + ')\n';
 };
 
