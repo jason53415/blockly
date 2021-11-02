@@ -399,5 +399,14 @@
 	"WORKSPACE_ARIA_LABEL": "Blockly工作區",
 	"COLLAPSED_WARNINGS_WARNING": "收合含有警告的區塊。",
 	"DIALOG_OK": "確定",
-	"DIALOG_CANCEL": "取消"
+	"DIALOG_CANCEL": "取消",
+	"FILE_SAVE": "將 %1 儲存至 %2.pickle",
+	"FILE_SAVE_TOOLTIP": "將物件儲存至檔案。",
+	"FILE_LOAD": "將 %2.pickle 的內容存入 %1",
+	"FILE_LOAD_TOOLTIP": "讀取儲存至檔案的物件。",
+	"FILE_CSV_SAVE": "將二維清單 %1 以分隔符 %3 儲存至 %2.csv",
+	"FILE_CSV_SAVE_TOOLTIP": "將二維清單依照分隔符儲存成 CSV 檔案。",
+	"FILE_CSV_LOAD": "將 %2.csv 的內容以分隔符 %3 讀取存成二維清單 %1",
+	"FILE_CSV_LOAD_TOOLTIP": "依照分隔符讀取 CSV 檔案並存成二維清單。",
+	"FILE_DEFAULT_NAME": "檔案名稱"
 }
