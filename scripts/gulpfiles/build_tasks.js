@@ -320,11 +320,11 @@ function buildDart() {
  *     dart_compressed.js
  */
 const buildGenerators = gulp.parallel(
-  buildJavascript,
+  // buildJavascript,
   buildPython,
-  buildPHP,
-  buildLua,
-  buildDart
+  // buildPHP,
+  // buildLua,
+  // buildDart
 );
 
 /**
@@ -414,11 +414,11 @@ goog.require('Blockly.requires');
  */
 function buildLangfiles(done) {
   // Run js_to_json.py
-  const jsToJsonCmd = `python ./scripts/i18n/js_to_json.py \
---input_file ${path.join('msg', 'messages.js')} \
---output_dir ${path.join('msg', 'json')} \
---quiet`;
-  execSync(jsToJsonCmd, { stdio: 'inherit' });
+  //   const jsToJsonCmd = `python ./scripts/i18n/js_to_json.py \
+  // --input_file ${path.join('msg', 'messages.js')} \
+  // --output_dir ${path.join('msg', 'json')} \
+  // --quiet`;
+  //   execSync(jsToJsonCmd, { stdio: 'inherit' });
 
   // Run create_messages.py
   let json_files = fs.readdirSync(path.join('msg', 'json'));
@@ -489,7 +489,7 @@ function buildAdvancedCompilationTest() {
 const buildCore = gulp.parallel(
   buildCompressed,
   buildBlocks,
-  buildUncompressed
+  // buildUncompressed
 );
 
 /**
