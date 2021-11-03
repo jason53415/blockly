@@ -1,6 +1,6 @@
 {
   "name": "@paia-arena/blockly",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A customized version of Blockly for PAIA/MLGame.",
   "keywords": [
     "blockly"
