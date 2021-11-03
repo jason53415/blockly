@@ -51,17 +51,15 @@ Blockly.Python.text.forceString_.strRegExp = /^\s*'([^']|\\')*'\s*$/;
 
 Blockly.Python['text_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
-  //Should we allow joining by '-' or ',' or any other characters?
+  // Should we allow joining by '-' or ',' or any other characters?
   switch (block.itemCount_) {
     case 0:
       return ['\'\'', Blockly.Python.ORDER_ATOMIC];
-      break;
     case 1:
       var element = Blockly.Python.valueToCode(block, 'ADD0',
-              Blockly.Python.ORDER_NONE) || '\'\'';
+          Blockly.Python.ORDER_NONE) || '\'\'';
       var codeAndOrder = Blockly.Python.text.forceString_(element);
       return codeAndOrder;
-      break;
     case 2:
       var element0 = Blockly.Python.valueToCode(block, 'ADD0',
           Blockly.Python.ORDER_NONE) || '\'\'';
@@ -70,12 +68,11 @@ Blockly.Python['text_join'] = function(block) {
       var code = Blockly.Python.text.forceString_(element0)[0] + ' + ' +
           Blockly.Python.text.forceString_(element1)[0];
       return [code, Blockly.Python.ORDER_ADDITIVE];
-      break;
     default:
       var elements = [];
       for (var i = 0; i < block.itemCount_; i++) {
         elements[i] = Blockly.Python.valueToCode(block, 'ADD' + i,
-                Blockly.Python.ORDER_NONE) || '\'\'';
+            Blockly.Python.ORDER_NONE) || '\'\'';
       }
       var tempVar = Blockly.Python.nameDB_.getDistinctName('x',
           Blockly.VARIABLE_CATEGORY_NAME);
@@ -152,8 +149,8 @@ Blockly.Python['text_charAt'] = function(block) {
       var functionName = Blockly.Python.provideFunction_(
           'text_random_letter',
           ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(text):',
-           '  x = int(random.random() * len(text))',
-           '  return text[x];']);
+            '  x = int(random.random() * len(text))',
+            '  return text[x];']);
       code = functionName + '(' + text + ')';
       return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   }
@@ -242,9 +239,9 @@ Blockly.Python['text_print'] = function(block) {
   Blockly.Python.definitions_['import_sys'] = 'import sys';
   Blockly.Python.definitions_['import_io'] = 'import io';
   Blockly.Python.provideFunction_(
-    'stdout_redirect',
-    ["if sys.stdout == sys.__stdout__:",
-     "  sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), encoding='utf-8', write_through=True)"]);
+      'stdout_redirect',
+      ["if sys.stdout == sys.__stdout__:",
+        "  sys.stdout = io.TextIOWrapper(open(sys.stdout.fileno(), 'wb', 0), encoding='utf-8', write_through=True)"]);
   return 'print(' + msg + ')\n';
 };
 
@@ -253,10 +250,10 @@ Blockly.Python['text_prompt_ext'] = function(block) {
   var functionName = Blockly.Python.provideFunction_(
       'text_prompt',
       ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(msg):',
-       '  try:',
-       '    return raw_input(msg)',
-       '  except NameError:',
-       '    return input(msg)']);
+        '  try:',
+        '    return raw_input(msg)',
+        '  except NameError:',
+        '    return input(msg)']);
   if (block.getField('TEXT')) {
     // Internal message.
     var msg = Blockly.Python.quote_(block.getFieldValue('TEXT'));

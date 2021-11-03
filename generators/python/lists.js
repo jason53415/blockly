@@ -85,19 +85,19 @@ Blockly.Python['lists_indexOf'] = function(block) {
         'first_index',
         ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ +
             '(my_list, elem):',
-         '  try: index = my_list.index(elem)' + firstIndexAdjustment,
-         '  except: index =' + errorIndex,
-         '  return index']);
+        '  try: index = my_list.index(elem)' + firstIndexAdjustment,
+        '  except: index =' + errorIndex,
+        '  return index']);
     var code = functionName + '(' + list + ', ' + item + ')';
     return [code, Blockly.Python.ORDER_FUNCTION_CALL];
   }
   var functionName = Blockly.Python.provideFunction_(
       'last_index',
       ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(my_list, elem):',
-       '  try: index = len(my_list) - my_list[::-1].index(elem)' +
-         lastIndexAdjustment,
-       '  except: index =' + errorIndex,
-       '  return index']);
+        '  try: index = len(my_list) - my_list[::-1].index(elem)' +
+        lastIndexAdjustment,
+        '  except: index =' + errorIndex,
+        '  return index']);
   var code = functionName + '(' + list + ', ' + item + ')';
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
@@ -146,7 +146,7 @@ Blockly.Python['lists_getIndex'] = function(block) {
         return list + '.pop(' + at + ')\n';
       }
       break;
-    case'FROM_END':
+    case 'FROM_END':
       var at = Blockly.Python.getAdjustedInt(block, 'AT', 1, true);
       if (mode == 'GET') {
         var code = list + '[' + at + ']';
@@ -212,41 +212,41 @@ Blockly.Python['lists_setIndex'] = function(block) {
       }
       break;
     case 'LAST':
-        if (mode == 'SET') {
-          return list + '[-1] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.append(' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[-1] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.append(' + value + ')\n';
+      }
       break;
     case 'FROM_START':
       var at = Blockly.Python.getAdjustedInt(block, 'AT');
-        if (mode == 'SET') {
-          return list + '[' + at + '] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.insert(' + at + ', ' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[' + at + '] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.insert(' + at + ', ' + value + ')\n';
+      }
       break;
     case 'FROM_END':
       var at = Blockly.Python.getAdjustedInt(block, 'AT', 1, true);
-        if (mode == 'SET') {
-          return list + '[' + at + '] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.insert(' + at + ', ' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[' + at + '] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.insert(' + at + ', ' + value + ')\n';
+      }
       break;
     case 'RANDOM':
-        Blockly.Python.definitions_['import_random'] = 'import random';
-        var code = cacheList();
-        var xVar = Blockly.Python.nameDB_.getDistinctName(
-            'tmp_x', Blockly.VARIABLE_CATEGORY_NAME);
-        code += xVar + ' = int(random.random() * len(' + list + '))\n';
-        if (mode == 'SET') {
-          code += list + '[' + xVar + '] = ' + value + '\n';
-          return code;
-        } else if (mode == 'INSERT') {
-          code += list + '.insert(' + xVar + ', ' + value + ')\n';
-          return code;
-        }
+      Blockly.Python.definitions_['import_random'] = 'import random';
+      var code = cacheList();
+      var xVar = Blockly.Python.nameDB_.getDistinctName(
+          'tmp_x', Blockly.VARIABLE_CATEGORY_NAME);
+      code += xVar + ' = int(random.random() * len(' + list + '))\n';
+      if (mode == 'SET') {
+        code += list + '[' + xVar + '] = ' + value + '\n';
+        return code;
+      } else if (mode == 'INSERT') {
+        code += list + '.insert(' + xVar + ', ' + value + ')\n';
+        return code;
+      }
       break;
   }
   throw Error('Unhandled combination (lists_setIndex).');
@@ -283,41 +283,41 @@ Blockly.Python['lists_insertIndex'] = function(block) {
       }
       break;
     case 'LAST':
-        if (mode == 'SET') {
-          return list + '[-1] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.append(' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[-1] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.append(' + value + ')\n';
+      }
       break;
     case 'FROM_START':
       var at = Blockly.Python.getAdjustedInt(block, 'AT');
-        if (mode == 'SET') {
-          return list + '[' + at + '] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.insert(' + at + ', ' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[' + at + '] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.insert(' + at + ', ' + value + ')\n';
+      }
       break;
     case 'FROM_END':
       var at = Blockly.Python.getAdjustedInt(block, 'AT', 1, true);
-        if (mode == 'SET') {
-          return list + '[' + at + '] = ' + value + '\n';
-        } else if (mode == 'INSERT') {
-          return list + '.insert(' + at + ', ' + value + ')\n';
-        }
+      if (mode == 'SET') {
+        return list + '[' + at + '] = ' + value + '\n';
+      } else if (mode == 'INSERT') {
+        return list + '.insert(' + at + ', ' + value + ')\n';
+      }
       break;
     case 'RANDOM':
-        Blockly.Python.definitions_['import_random'] = 'import random';
-        var code = cacheList();
-        var xVar = Blockly.Python.nameDB_.getDistinctName(
-            'tmp_x', Blockly.VARIABLE_CATEGORY_NAME);
-        code += xVar + ' = int(random.random() * len(' + list + '))\n';
-        if (mode == 'SET') {
-          code += list + '[' + xVar + '] = ' + value + '\n';
-          return code;
-        } else if (mode == 'INSERT') {
-          code += list + '.insert(' + xVar + ', ' + value + ')\n';
-          return code;
-        }
+      Blockly.Python.definitions_['import_random'] = 'import random';
+      var code = cacheList();
+      var xVar = Blockly.Python.nameDB_.getDistinctName(
+          'tmp_x', Blockly.VARIABLE_CATEGORY_NAME);
+      code += xVar + ' = int(random.random() * len(' + list + '))\n';
+      if (mode == 'SET') {
+        code += list + '[' + xVar + '] = ' + value + '\n';
+        return code;
+      } else if (mode == 'INSERT') {
+        code += list + '.insert(' + xVar + ', ' + value + ')\n';
+        return code;
+      }
       break;
   }
   throw Error('Unhandled combination (lists_setIndex).');
@@ -377,22 +377,22 @@ Blockly.Python['lists_sort'] = function(block) {
   var type = block.getFieldValue('TYPE');
   var reverse = block.getFieldValue('DIRECTION') === '1' ? 'False' : 'True';
   var sortFunctionName = Blockly.Python.provideFunction_('lists_sort',
-  ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ +
+      ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ +
       '(my_list, type, reverse):',
-    '  def try_float(s):',
-    '    try:',
-    '      return float(s)',
-    '    except:',
-    '      return 0',
-    '  key_funcs = {',
-    '    "NUMERIC": try_float,',
-    '    "TEXT": str,',
-    '    "IGNORE_CASE": lambda s: str(s).lower()',
-    '  }',
-    '  key_func = key_funcs[type]',
-    '  list_cpy = list(my_list)', // Clone the list.
-    '  return sorted(list_cpy, key=key_func, reverse=reverse)'
-  ]);
+      '  def try_float(s):',
+      '    try:',
+      '      return float(s)',
+      '    except:',
+      '      return 0',
+      '  key_funcs = {',
+      '    "NUMERIC": try_float,',
+      '    "TEXT": str,',
+      '    "IGNORE_CASE": lambda s: str(s).lower()',
+      '  }',
+      '  key_func = key_funcs[type]',
+      '  list_cpy = list(my_list)', // Clone the list.
+      '  return sorted(list_cpy, key=key_func, reverse=reverse)'
+      ]);
 
   var code = sortFunctionName +
       '(' + list + ', "' + type + '", ' + reverse + ')';

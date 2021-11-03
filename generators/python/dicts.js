@@ -31,10 +31,10 @@ Blockly.Python['dicts_create_with'] = function(block) {
   
   for (var n = 0; n < block.itemCount_; n++) {
     var key = Blockly.Python.valueToCode(block, 'KEY' + n,
-    Blockly.Python.ORDER_NONE) || 'None';
+        Blockly.Python.ORDER_NONE) || 'None';
     var value = Blockly.Python.valueToCode(block, 'VALUE' + n,
-    Blockly.Python.ORDER_NONE) || 'None';
-    code[n] = key +": "+ value;
+        Blockly.Python.ORDER_NONE) || 'None';
+    code[n] = key + ": " + value;
   }
   code = '{\n' + Blockly.Python.INDENT + code.join(',\n' + Blockly.Python.INDENT) + '\n}';
   return [code, Blockly.Python.ORDER_ATOMIC];
