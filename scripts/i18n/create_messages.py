@@ -21,6 +21,7 @@ import codecs
 import os
 import re
 import sys
+import glob
 from common import read_json_file
 
 
@@ -63,6 +64,10 @@ def main():
                       help='Path to .json file with constant definitions')
   parser.add_argument('--output_dir', default='js/',
                       help='relative directory for output files')
+  parser.add_argument('--mlgame_dir', default='mlgame/json',
+                      help='Path to MLGame .json file with block options')
+  parser.add_argument('--mlgame_output_dir', default='mlgame/js/',
+                      help='relative directory for output files with block options')
   parser.add_argument('--key_file', default='keys.json',
                       help='relative path to input keys file')
   parser.add_argument('--quiet', action='store_true', default=False,
@@ -72,9 +77,110 @@ def main():
   if not args.output_dir.endswith(os.path.sep):
     args.output_dir += os.path.sep
 
+  # ganerate javascript files of mlgame
+  mlgame_files = glob.glob(os.path.join(args.mlgame_dir, "*.json"))
+  mlgame_defs = {'en': {}, 'zh-hant': {}}
+  for mlgame_file in mlgame_files:
+    (_, filename) = os.path.split(mlgame_file)
+    game = filename[:filename.index('.')]
+    game_options = read_json_file(os.path.join(os.curdir, mlgame_file))
+
+    outname = os.path.join(os.curdir, args.mlgame_output_dir, game + '.js')
+    with codecs.open(outname, 'w', 'utf-8') as outfile:
+      outfile.write(
+            """// This file was automatically generated.  Do not modify.
+
+'use strict';
+
+""")
+      if "INIT_INFO" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_INIT_INFO_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["INIT_INFO"]):
+          op_name = game.upper() + '_INIT_INFO_' + str(i+1)
+          op_key = op
+          if i < len(game_options["INIT_INFO"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"],\n'.format(op_name, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"]\n'.format(op_name, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+
+      if "PLAYER_STATUS" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_PLAYER_STATUS_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["PLAYER_STATUS"]):
+          op_name = game.upper() + '_PLAYER_STATUS_' + str(i+1)
+          op_key = op
+          if i < len(game_options["PLAYER_STATUS"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"],\n'.format(op_name, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"]\n'.format(op_name, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+      
+      if "GAME_STATUS" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_GAME_STATUS_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["GAME_STATUS"]):
+          op_name = game.upper() + '_GAME_STATUS_' + str(i+1)
+          op_key = op
+          if i < len(game_options["GAME_STATUS"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"],\n'.format(op_name, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"]\n'.format(op_name, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+      
+      if "SCENE_INFO" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_GET_INFO_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["SCENE_INFO"]):
+          op_name = game.upper() + '_SCENE_INFO_' + str(i+1)
+          op_key = op
+          if i < len(game_options["SCENE_INFO"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"],\n'.format(op_name, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"]\n'.format(op_name, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+      
+      if "CONSTANT" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_GET_CONSTANT_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["CONSTANT"]):
+          op_name = game.upper() + '_CONSTANT_' + str(i+1)
+          op_key = op
+          if i < len(game_options["CONSTANT"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}/{2}"],\n'.format(op_name, i+1, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}/{2}"]\n'.format(op_name, i+1, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+
+      if "ACTION" in game_options:
+        outfile.write(u'Blockly.Msg["MLPLAY_RETURN_ACTION_OPTIONS"] = [\n')
+        for i, (op, en, zh) in enumerate(game_options["ACTION"]):
+          op_name = game.upper() + '_ACTION_' + str(i+1)
+          op_key = op
+          if i < len(game_options["ACTION"]) - 1:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"],\n'.format(op_name, op_key))
+          else:
+            outfile.write(u'  ["%{{BKY_{0}}}", "{1}"]\n'.format(op_name, op_key))
+          mlgame_defs['en'][op_name] = en
+          mlgame_defs['zh-hant'][op_name] = zh
+        outfile.write(u'];\n')
+    
+    if not args.quiet:
+      if os.path.isfile(outname):
+        print('Created {0}.'.format(outname))
+      else:
+        print("Failed to create {0}.", outname)
+
   # Read in source language .json file, which provides any values missing
   # in target languages' .json files.
   source_defs = read_json_file(os.path.join(os.curdir, args.source_lang_file))
+  source_defs.update(mlgame_defs['en'])
   # Make sure the source file doesn't contain a newline or carriage return.
   for key, value in source_defs.items():
     if _NEWLINE_PATTERN.search(value):
@@ -100,6 +206,8 @@ def main():
     target_lang = filename[:filename.index('.')]
     if target_lang not in ('qqq', 'keys', 'synonyms', 'constants'):
       target_defs = read_json_file(os.path.join(os.curdir, arg_file))
+      if target_lang in ('en', 'zh-hant'):
+        target_defs.update(mlgame_defs[target_lang])
 
       # Verify that keys are 'ascii'
       bad_keys = [key for key in target_defs if not string_is_ascii(key)]
