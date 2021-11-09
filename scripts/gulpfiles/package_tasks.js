@@ -367,6 +367,22 @@ function packageDTS() {
 };
 
 /**
+ * This task wraps each of the mlgame/js/* files into a UMD module.
+ * @example import * as En from 'blockly/msg/en';
+ */
+ function packageMLGame() {
+  // Remove references to goog.provide and goog.require.
+  return gulp.src('mlgame/js/*.js')
+      .pipe(gulp.replace(/goog\.[^\n]+/g, ''))
+      .pipe(packageUMD('Blockly.Msg', [{
+          name: 'Blockly',
+          amd: '../core',
+          cjs: '../core',
+        }]))
+      .pipe(gulp.dest(`${packageDistribution}/msg/mlgame`));
+};
+
+/**
  * This task prepares the NPM distribution files under the /dist directory.
  */
 const package = gulp.parallel(
@@ -385,6 +401,7 @@ const package = gulp.parallel(
   packageDart,
   packagePHP,
   packageLocales,
+  packageMLGame,
   packageMedia,
   packageUMDBundle,
   packageJSON,
