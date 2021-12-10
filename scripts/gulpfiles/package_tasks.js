@@ -375,9 +375,9 @@ function packageDTS() {
   return gulp.src('mlgame/js/*.js')
       .pipe(gulp.replace(/goog\.[^\n]+/g, ''))
       .pipe(packageUMD('Blockly.Msg', [{
-          name: 'Blockly',
-          amd: '../core',
-          cjs: '../core',
+          name: 'Blockly', 
+          amd: '../../core',
+          cjs: '../../core',
         }]))
       .pipe(gulp.dest(`${packageDistribution}/msg/mlgame`));
 };
