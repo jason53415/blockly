@@ -37,11 +37,14 @@ Blockly.Python['mlplay_class'] = function(block) {
       Blockly.Python.INDENT + 'global ' + globals.join(', ') + '\n' : '';
   var init = Blockly.Python.statementToCode(block, 'INIT') || Blockly.Python.PASS;
   var init_var = "";
+  var reserved_word = ['self', 'scene_info', 'keyboard'];
   if ('MLPLAY_INIT_INFO_OPTIONS' in Blockly.Msg) {
     for (var i = 0; i < Blockly.Msg['MLPLAY_INIT_INFO_OPTIONS'].length; i++) {
       init_var += (', ' + Blockly.Msg['MLPLAY_INIT_INFO_OPTIONS'][i][1]);
+      reserved_word.push(Blockly.Msg['MLPLAY_INIT_INFO_OPTIONS'][i][1]);
     }
   }
+  Blockly.Python.addReservedWords(reserved_word.join());
   var update = Blockly.Python.statementToCode(block, 'UPDATE') || Blockly.Python.PASS;
   var reset = Blockly.Python.statementToCode(block, 'RESET') || Blockly.Python.PASS;
   var code = 'class MLPlay:\n' + Blockly.Python.prefixLines(
