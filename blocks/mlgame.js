@@ -71,6 +71,15 @@ Blockly.Blocks['mlplay_class'] = {
       this.setWarningText(null);
       this.setEnabled(true);
     }
+  },
+  getDeveloperVariables: function() {
+    var devVars = ['self', 'scene_info', 'keyboard'];
+    if ('MLPLAY_INIT_INFO_OPTIONS' in Blockly.Msg) {
+      for (var i = 0; i < Blockly.Msg['MLPLAY_INIT_INFO_OPTIONS'].length; i++) {
+        devVars.push(Blockly.Msg['MLPLAY_INIT_INFO_OPTIONS'][i][1]);
+      }
+    }
+    return devVars;
   }
 };
 
