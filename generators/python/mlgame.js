@@ -96,32 +96,8 @@ Blockly.Python['mlplay_return_mazecar_action'] = function(block) {
 };
 
 Blockly.Python['mlplay_is_key_pressed'] = function(block) {
-  Blockly.Python.definitions_['import_keyboard'] = 'from pynput import keyboard';
-  Blockly.Python.definitions_['import_defaultdict'] = 'from collections import defaultdict';
-  var on_press_func = Blockly.Python.provideFunction_(
-      'on_press',
-      ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(key):',
-        '  _KEYBOARD_ON_PRESSED[str(key)] = True']);
-  var on_release_func = Blockly.Python.provideFunction_(
-      'on_release',
-      ['def ' + Blockly.Python.FUNCTION_NAME_PLACEHOLDER_ + '(key):',
-        '  _KEYBOARD_ON_PRESSED[str(key)] = False']);
-  Blockly.Python.provideFunction_(
-      'keyboard_listener',
-      ['_KEYBOARD_ON_PRESSED = defaultdict(bool)',
-        'listener = keyboard.Listener(',
-        '  on_press=' + on_press_func + ',',
-        '  on_release=' + on_release_func + ')',
-        'listener.start()']);
-  var type = block.getFieldValue('TYPE');
+  Blockly.Python.definitions_['import_pygame'] = 'import pygame';
   var key = block.getFieldValue('KEY');
-  if (type == 'arrow') {
-    var code = '_KEYBOARD_ON_PRESSED["Key.' + key + '"]';
-  } else if (type == 'alpha') {
-    var code = '(_KEYBOARD_ON_PRESSED["\'' + key + '\'"] or ' +
-               '_KEYBOARD_ON_PRESSED["\'' + key.toLowerCase() + '\'"])';
-  } else {
-    var code = '_KEYBOARD_ON_PRESSED["\'' + key + '\'"]';
-  }
+  var code = 'pygame.K_' + key + ' in keyboard';
   return [code, Blockly.Python.ORDER_RELATIONAL];
 };

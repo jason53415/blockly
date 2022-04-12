@@ -335,10 +335,10 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
       ['%{BKY_MLPLAY_ALPHA_KEYS}', 'alpha']
     ];
     this.arrow_keys_ = [
-      ["\u2191", 'up'],
-      ["\u2193", 'down'],
-      ["\u2190", 'left'],
-      ["\u2192", 'right']
+      ["\u2191", 'UP'],
+      ["\u2193", 'DOWN'],
+      ["\u2190", 'LEFT'],
+      ["\u2192", 'RIGHT']
     ];
     this.number_keys_ = Array.apply(null, Array(10)).map(
         function(_, i) {
@@ -346,7 +346,7 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
         });
     this.alpha_keys_ = Array.apply(null, Array(26)).map(
         function(_, i) {
-          return [String.fromCharCode(i + 65), String.fromCharCode(i + 65)];
+          return [String.fromCharCode(i + 65), String.fromCharCode(i + 97)];
         });
     this.appendDummyInput('FIELDS')
         .appendField(new Blockly.FieldDropdown(this.key_types_, function(value) {
@@ -373,7 +373,30 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
         break;
     }
   },
-  getDeveloperVariables: function() {
-    return ['_KEYBOARD_ON_PRESSED'];
+  onchange: function(_e) {
+    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+      return;  // Don't change state at the start of a drag.
+    }
+    var legal = false;
+    var block = this;
+    var parentBlock = this.getParent();
+    while (parentBlock) {
+      if (parentBlock.type == 'mlplay_class') {
+        var input = parentBlock.getInputWithBlock(block);
+        if (input.name == "UPDATE") {
+          legal = true;
+        }
+        break;
+      }
+      block = parentBlock;
+      parentBlock = block.getParent();
+    }
+    if (legal) {
+      this.setWarningText(null);
+      this.setEnabled(true);
+    } else if (!this.isInFlyout) {
+      this.setWarningText(Blockly.Msg['MLPLAY_GET_INFO_WARNING']);
+      this.setEnabled(false);
+    }
   }
 };
