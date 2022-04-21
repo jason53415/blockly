@@ -53,7 +53,8 @@ Blockly.Blocks['mlplay_class'] = {
     });
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     // Is there more than one block?
@@ -64,6 +65,8 @@ Blockly.Blocks['mlplay_class'] = {
         blockNum++;
       }
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (blockNum > 1 && !this.isInFlyout) {
       this.setWarningText(Blockly.Msg['MLPLAY_CLASS_WARNING']);
       this.setEnabled(false);
@@ -71,6 +74,7 @@ Blockly.Blocks['mlplay_class'] = {
       this.setWarningText(null);
       this.setEnabled(true);
     }
+    Blockly.Events.setGroup(group);
   }
 };
 
@@ -98,7 +102,8 @@ Blockly.Blocks['mlplay_init_info'] = {
     }
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     //
@@ -116,6 +121,8 @@ Blockly.Blocks['mlplay_init_info'] = {
       block = parentBlock;
       parentBlock = block.getParent();
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (legal) {
       this.setWarningText(null);
       this.setEnabled(true);
@@ -123,6 +130,7 @@ Blockly.Blocks['mlplay_init_info'] = {
       this.setWarningText(Blockly.Msg['MLPLAY_INIT_INFO_WARNING']);
       this.setEnabled(false);
     }
+    Blockly.Events.setGroup(group);
   }
 };
 
@@ -180,7 +188,8 @@ Blockly.Blocks['mlplay_get_info'] = {
     this.setTooltip(Blockly.Msg['MLPLAY_GET_INFO_TOOLTIP']);
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     //
@@ -198,6 +207,8 @@ Blockly.Blocks['mlplay_get_info'] = {
       block = parentBlock;
       parentBlock = block.getParent();
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (legal) {
       this.setWarningText(null);
       this.setEnabled(true);
@@ -205,6 +216,7 @@ Blockly.Blocks['mlplay_get_info'] = {
       this.setWarningText(Blockly.Msg['MLPLAY_GET_INFO_WARNING']);
       this.setEnabled(false);
     }
+    Blockly.Events.setGroup(group);
   }
 };
 
@@ -238,7 +250,8 @@ Blockly.Blocks['mlplay_return_action'] = {
     this.setTooltip(Blockly.Msg['MLPLAY_RETURN_ACTION_TOOLTIP']);
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     //
@@ -256,6 +269,8 @@ Blockly.Blocks['mlplay_return_action'] = {
       block = parentBlock;
       parentBlock = block.getParent();
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (legal) {
       this.setWarningText(null);
       this.setEnabled(true);
@@ -263,6 +278,7 @@ Blockly.Blocks['mlplay_return_action'] = {
       this.setWarningText(Blockly.Msg['MLPLAY_RETURN_ACTION_WARNING']);
       this.setEnabled(false);
     }
+    Blockly.Events.setGroup(group);
   }
 };
 
@@ -295,7 +311,8 @@ Blockly.Blocks['mlplay_return_mazecar_action'] = {
     });
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     //
@@ -313,6 +330,8 @@ Blockly.Blocks['mlplay_return_mazecar_action'] = {
       block = parentBlock;
       parentBlock = block.getParent();
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (legal) {
       this.setWarningText(null);
       this.setEnabled(true);
@@ -320,6 +339,7 @@ Blockly.Blocks['mlplay_return_mazecar_action'] = {
       this.setWarningText(Blockly.Msg['MLPLAY_RETURN_ACTION_WARNING']);
       this.setEnabled(false);
     }
+    Blockly.Events.setGroup(group);
   }
 };
 
@@ -374,7 +394,8 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
     }
   },
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     var legal = false;
@@ -391,6 +412,8 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
       block = parentBlock;
       parentBlock = block.getParent();
     }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
     if (legal) {
       this.setWarningText(null);
       this.setEnabled(true);
@@ -398,5 +421,6 @@ Blockly.Blocks['mlplay_is_key_pressed'] = {
       this.setWarningText(Blockly.Msg['MLPLAY_GET_INFO_WARNING']);
       this.setEnabled(false);
     }
+    Blockly.Events.setGroup(group);
   }
 };
