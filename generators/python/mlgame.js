@@ -45,8 +45,8 @@ Blockly.Python['mlplay_class'] = function(block) {
   var update = Blockly.Python.statementToCode(block, 'UPDATE') || Blockly.Python.PASS;
   var reset = Blockly.Python.statementToCode(block, 'RESET') || Blockly.Python.PASS;
   var code = 'class MLPlay:\n' + Blockly.Python.prefixLines(
-      'def __init__(self' + init_var + '):\n' + globals + init +
-      'def update(self, scene_info, keyboard):\n' + globals + update +
+      'def __init__(self' + init_var + ', *args, **kwargs):\n' + globals + init +
+      'def update(self, scene_info, keyboard=[], *args, **kwargs):\n' + globals + update +
       'def reset(self):\n' + globals + reset, Blockly.Python.INDENT);
   return code;
 };
