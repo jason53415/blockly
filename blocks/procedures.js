@@ -1030,7 +1030,8 @@ Blockly.Blocks['procedures_ifreturn'] = {
    * @this {Blockly.Block}
    */
   onchange: function(_e) {
-    if (!this.workspace.isDragging || this.workspace.isDragging()) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
       return;  // Don't change state at the start of a drag.
     }
     var legal = false;
@@ -1058,14 +1059,14 @@ Blockly.Blocks['procedures_ifreturn'] = {
         this.hasReturnValue_ = true;
       }
       this.setWarningText(null);
-      if (!this.isInFlyout) {
-        this.setEnabled(true);
-      }
     } else {
       this.setWarningText(Blockly.Msg['PROCEDURES_IFRETURN_WARNING']);
-      if (!this.isInFlyout && !this.getInheritedDisabled()) {
-        this.setEnabled(false);
-      }
+    }
+    if (!this.isInFlyout) {
+      var group = Blockly.Events.getGroup();
+      Blockly.Events.setGroup(_e.group);
+      this.setEnabled(legal);
+      Blockly.Events.setGroup(group);
     }
   },
   /**
