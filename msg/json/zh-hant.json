@@ -433,6 +433,8 @@
 	"MLPLAY_RETURN_MAZECAR_ACTION": "回傳 左輪轉速：%1 右輪轉速：%2",
 	"MLPLAY_RETURN_ACTION_TOOLTIP": "回傳下一步的行動，或者在遊戲結束時回傳重設的命令。",
 	"MLPLAY_RETURN_ACTION_WARNING": "警告：無法在 MLPlay 的「更新」區塊外回傳行動。",
+	"MLPLAY_RETURN_VALUE": "回傳",
+	"MLPLAY_RETURN_VALUE_TOOLTIP": "回傳下一步的行動數值。",
 	"MLPLAY_ARROW_KEYS": "方向鍵",
 	"MLPLAY_NUMBER_KEYS": "數字鍵",
 	"MLPLAY_ALPHA_KEYS": "英文字母鍵",

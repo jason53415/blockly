@@ -86,12 +86,23 @@ Blockly.Python['mlplay_return_action'] = function(block) {
   return code;
 };
 
+Blockly.Python['mlplay_return_value'] = function(block) {
+  var input = new Array(block.inputCount_);
+  for (var i = 0; i < block.inputCount_; i++) {
+    var value = Blockly.Python.valueToCode(block, 'INPUT' + i,
+        Blockly.Python.ORDER_NONE) || '0';
+    input[i] = "'" + block.inputKey_[i] + "': " + value;
+  }
+  var code = "return {" + input.join(', ') + "}\n";
+  return code;
+};
+
 Blockly.Python['mlplay_return_mazecar_action'] = function(block) {
   var left = Blockly.Python.valueToCode(block, 'LEFT_RPM',
       Blockly.Python.ORDER_NONE) || '0';
   var right = Blockly.Python.valueToCode(block, 'RIGHT_RPM',
       Blockly.Python.ORDER_NONE) || '0';
-  var code = "return [{'left_PWM': " + left + ", 'right_PWM': " + right + "}]\n";
+  var code = "return {'left_PWM': " + left + ", 'right_PWM': " + right + "}\n";
   return code;
 };
 

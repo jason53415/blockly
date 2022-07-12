@@ -282,6 +282,55 @@ Blockly.Blocks['mlplay_return_action'] = {
   }
 };
 
+Blockly.Blocks['mlplay_return_value'] = {
+  /**
+   * Block for returning value.
+   * @this {Blockly.Block}
+   */
+  init: function() {
+    this.inputCount_ = 0;
+    this.inputKey_ = [];
+    this.init_settings_();
+  },
+  init_settings_: function() {
+    this.setStyle('mlgame_blocks');
+    this.setOutput(false);
+    this.setPreviousStatement(true);
+    this.setTooltip(Blockly.Msg['MLPLAY_RETURN_VALUE_TOOLTIP']);
+  },
+  onchange: function(_e) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
+      return;  // Don't change state at the start of a drag.
+    }
+    //
+    var legal = false;
+    var block = this;
+    var parentBlock = this.getParent();
+    while (parentBlock) {
+      if (parentBlock.type == 'mlplay_class') {
+        var input = parentBlock.getInputWithBlock(block);
+        if (input.name == "UPDATE") {
+          legal = true;
+        }
+        break;
+      }
+      block = parentBlock;
+      parentBlock = block.getParent();
+    }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
+    if (legal) {
+      this.setWarningText(null);
+      this.setEnabled(true);
+    } else if (!this.isInFlyout) {
+      this.setWarningText(Blockly.Msg['MLPLAY_RETURN_ACTION_WARNING']);
+      this.setEnabled(false);
+    }
+    Blockly.Events.setGroup(group);
+  }
+};
+
 Blockly.Blocks['mlplay_return_mazecar_action'] = {
   /**
    * Block for returning Maze_Car action.
