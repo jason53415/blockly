@@ -49,7 +49,7 @@ Blockly.Python['file_csv_save'] = function(block) {
   var name = Blockly.Python.valueToCode(block, 'FILENAME',
       Blockly.Python.ORDER_NONE) || ("'save_" + new Date().getTime() + "'");
   var delimiter = block.getFieldValue('DELIMITER');
-  var code = "with open(os.path.join(os.path.dirname(__file__), " + name + " + '.csv'), 'w', newline='') as f:\n" +
+  var code = "with open(os.path.join(os.path.dirname(__file__), " + name + " + '.csv'), 'w', newline='', encoding='utf-8') as f:\n" +
       Blockly.Python.prefixLines("csv.writer(f, delimiter='" + delimiter + "').writerows(" + obj + ")\n", Blockly.Python.INDENT);
   return code;
 };
@@ -63,7 +63,7 @@ Blockly.Python['file_csv_load'] = function(block) {
   var name = Blockly.Python.valueToCode(block, 'FILENAME',
       Blockly.Python.ORDER_NONE) || "''";
   var delimiter = block.getFieldValue('DELIMITER');
-  var code = "with open(os.path.join(os.path.dirname(__file__), " + name + " + '.csv'), 'r', newline='') as f:\n" +
+  var code = "with open(os.path.join(os.path.dirname(__file__), " + name + " + '.csv'), 'r', newline='', encoding='utf-8') as f:\n" +
       Blockly.Python.prefixLines(obj + " = [row for row in csv.reader(f, delimiter='" + delimiter + "')]\n", Blockly.Python.INDENT);
   return code;
 };
