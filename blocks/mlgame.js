@@ -134,6 +134,62 @@ Blockly.Blocks['mlplay_init_info'] = {
   }
 };
 
+Blockly.Blocks['mlplay_game_param'] = {
+  /**
+   * Block for getting game parameters.
+   * @this {Blockly.Block}
+   */
+  init: function() {
+    if ('MLPLAY_GAME_PARAM_OPTIONS' in Blockly.Msg) {
+      this.appendDummyInput()
+          .appendField(Blockly.Msg['MLPLAY_GAME_PARAM'])
+          .appendField(new Blockly.FieldDropdown(Blockly.Msg['MLPLAY_GAME_PARAM_OPTIONS']), "FIELD");
+      this.setStyle('mlgame_blocks');
+      this.setOutput(true);
+      this.setTooltip(Blockly.Msg['MLPLAY_GAME_PARAM_TOOLTIP']);
+    } else {
+      this.appendDummyInput()
+          .appendField(Blockly.Msg['MLPLAY_GAME_PARAM'])
+          .appendField(new Blockly.FieldDropdown([["", ""]]), "FIELD");
+      this.setStyle('mlgame_blocks');
+      this.setOutput(true);
+      this.setTooltip(Blockly.Msg['MLPLAY_GAME_PARAM_TOOLTIP']);
+      this.setEnabled(false);
+    }
+  },
+  onchange: function(_e) {
+    if (!this.workspace.isDragging || this.workspace.isDragging() ||
+        _e.type !== Blockly.Events.MOVE) {
+      return;  // Don't change state at the start of a drag.
+    }
+    //
+    var legal = false;
+    var block = this;
+    var parentBlock = this.getParent();
+    while (parentBlock) {
+      if (parentBlock.type == 'mlplay_class') {
+        var input = parentBlock.getInputWithBlock(block);
+        if (input.name == "INIT") {
+          legal = true;
+        }
+        break;
+      }
+      block = parentBlock;
+      parentBlock = block.getParent();
+    }
+    var group = Blockly.Events.getGroup();
+    Blockly.Events.setGroup(_e.group);
+    if (legal) {
+      this.setWarningText(null);
+      this.setEnabled(true);
+    } else if (!this.isInFlyout) {
+      this.setWarningText(Blockly.Msg['MLPLAY_GAME_PARAM_WARNING']);
+      this.setEnabled(false);
+    }
+    Blockly.Events.setGroup(group);
+  }
+};
+
 Blockly.Blocks['mlplay_player_status'] = {
   /**
    * Block for checking game status.

@@ -56,6 +56,11 @@ Blockly.Python['mlplay_init_info'] = function(block) {
   return [code, Blockly.Python.ORDER_STRING_CONVERSION];
 };
 
+Blockly.Python['mlplay_game_param'] = function(block) {
+  var code = block.getFieldValue('FIELD');
+  return [code, Blockly.Python.ORDER_STRING_CONVERSION];
+};
+
 Blockly.Python['mlplay_player_status'] = function(block) {
   var code = '"' + block.getFieldValue('STATUS') + '"';
   return [code, Blockly.Python.ORDER_STRING_CONVERSION];
